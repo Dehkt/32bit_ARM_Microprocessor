@@ -3,7 +3,7 @@
 // Company: 
 // Engineer: 
 // 
-// Create Date: 09/29/2024 08:14:35 PM
+// Create Date: 12/15/2024 04:44:54 AM
 // Design Name: 
 // Module Name: ALU
 // Project Name: 
@@ -19,24 +19,29 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
+
 module ALU(
-           input logic   [31:0]  SrcA,
-           input logic   [31:0]  SrcB,
-           input logic   [1:0]   aluCtrl,
-           output logic  [31:0]  aluResult,
-           output logic          zero
+    input [31:0] SrcA,
+    input [31:0] SrcB,
+    input [1:0] ALUControl,
+    output reg [31:0] ALUResult,
+    output reg Zero // may not be reg type
     );
-
-always_comb begin
-    case(aluCtrl)
-    2'b00:   aluResult = SrcA + SrcB; // ADD
-    2'b01:   aluResult = SrcA - SrcB; // SUB
-    2'b10:   aluResult = SrcA & SrcB; // AND
-    2'b11:   aluResult = SrcA | SrcB; // OR
-    default: aluResult = 32'b0;
-    endcase
-end
-
-assign zero = (aluResult == 32'b0) ? 1'b1 : 1'b0;
-
+    
+    parameter ADD = 2'b00;
+    parameter SUB = 2'b01;
+    parameter AND = 2'b10;
+    parameter ORR = 2'b11;
+    
+    always @(*) begin
+        case (ALUControl)
+            ADD:  ALUResult = SrcA + SrcB;
+            SUB:  ALUResult = SrcA - SrcB;
+            AND:  ALUResult = SrcA & SrcB;
+            ORR:  ALUResult = SrcA || SrcB;
+        default: ALUResult = 32'b0;
+        endcase
+        Zero = (ALUResult == 32'b0); // Zero = 1 when Result is equal to zero.
+       end
+       
 endmodule
