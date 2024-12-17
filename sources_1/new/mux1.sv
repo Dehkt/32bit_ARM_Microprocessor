@@ -3,9 +3,9 @@
 // Company: 
 // Engineer: 
 // 
-// Create Date: 10/07/2024 07:54:17 AM
+// Create Date: 12/15/2024 04:44:54 AM
 // Design Name: 
-// Module Name: mux1
+// Module Name: Mux1
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
@@ -20,17 +20,18 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module mux1(
-    input logic [31:0] readData,
-    input logic [31:0] PCout,
-    input logic PCSrc,
-    output logic [31:0] PCin
-);
-    always_comb begin
-        if (PCSrc) begin
-            PCin = readData;
+module Mux1(
+    input      [31:0] ReadData,
+    input      [31:0] PC,
+    input             PCSrc,
+    output reg [31:0] PCPrime
+    );
+    
+    always @(*) begin
+        if (PCSrc == 1) begin
+            PCPrime = ReadData;
         end else begin
-            PCin = PCout + 4; // PCPlus4
+            PCPrime = PC + 4;
         end
     end
     
