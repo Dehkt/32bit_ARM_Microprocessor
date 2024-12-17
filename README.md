@@ -1,8 +1,6 @@
-# Single Cycle 32-bit ARM Microprocessor
+# 32-bit ARM Microprocessor
 
-## Project Overview
-Design and implementation of a Single Cycle 32-bit ARM Microprocessor that supports the following instructions:
-
+### Design and implementation of a Single Cycle 32-bit ARM Microprocessor that supports the following instructions:
 - **LDR** (Load Register)
 - **STR** (Store Register)
 - **ADD** (Addition)
