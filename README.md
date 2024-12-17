@@ -1,4 +1,4 @@
-# Single Cycle 32-bit ARM Microprocessor Design
+# Single Cycle 32-bit ARM Microprocessor
 
 ## Project Overview
 Design and implementation of a Single Cycle 32-bit ARM Microprocessor that supports the following instructions:
@@ -12,8 +12,5 @@ Design and implementation of a Single Cycle 32-bit ARM Microprocessor that suppo
 - **B** (Branch)
 
 ## Implementation
-- The microprocessor is written using SystemVerilog.
-- Currently only supports the **LDR** instruction.
-
-## Future Work
-- Extend support to additional instructions (STR, ADD, SUB, ORR, AND, B).
+- The microprocessor is written in Verilog.
+- Currently Supports LDR, STR.
