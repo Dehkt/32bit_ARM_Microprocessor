@@ -3,9 +3,9 @@
 // Company: 
 // Engineer: 
 // 
-// Create Date: 09/29/2024 08:14:35 PM
+// Create Date: 12/15/2024 04:44:54 AM
 // Design Name: 
-// Module Name: ImmediateExt
+// Module Name: Extender
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
@@ -20,13 +20,12 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module ImmediateExt(
-                    input  logic [11:0] InputAddr,
-                    output logic [31:0] ImmExt
+module Extender(
+    input  [11:0] Imm,
+    output [31:0] ImmExt
     );
- 
-always_comb begin
-    assign ImmExt = {{20{InputAddr[11]}}, InputAddr};
-end
-
+   
+    assign ImmExt = {{20{Imm[11]}}, Imm };
+    
 endmodule
+
