@@ -3,9 +3,9 @@
 // Company: 
 // Engineer: 
 // 
-// Create Date: 09/29/2024 08:14:35 PM
+// Create Date: 12/15/2024 04:44:54 AM
 // Design Name: 
-// Module Name: DataMemory
+// Module Name: DataMem
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
@@ -20,30 +20,38 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module DataMemory(
-                  input logic         clk,
-                  input logic         rst,
-                  input logic         writeEn,
-                  input logic  [31:0] address,
-                  input logic  [31:0] writeData,
-                  output logic [31:0] readData
-    );
-logic [31:0] mem [0:255];
+module DataMem(
+    input clk,
+    input rst,
+    input WE,
+    input [7:0] A,
+    input [31:0] WD,
+    output reg [31:0] RD
+);
 
-always_ff @(posedge clk or posedge rst) begin
-    if(rst) begin
-    for(int i = 0; i < 256; i++) begin
-        mem[i] <= 32'b0;
+    
+    reg [31:0] mem [0:255]; // Memory array of 256 locations, each 32 bits wide
+    integer i;
+
+    always @(posedge clk) begin
+        if (WE) begin
+            mem[A] <= WD;
+        end
     end
-   end else begin
-   if(writeEn) begin
-       mem[address[7:0]] <= writeData;
-   end
- end
-end
+    
+    always @(posedge clk or posedge rst) begin
+    if(rst) begin
+        for (i = 0; i<256; i = i + 1)
+            mem[i] <= 32'b0;
+        end else if (WE) begin
+            mem[A] <= WD;
+        end
+     end
 
-always_comb begin
-    readData = mem[address[7:0]];
-end
+    always @(*) begin
+        RD <= mem[A];
+//        mem[6] <= 8'b0011; // For Testing
+    end
+    
 
 endmodule
