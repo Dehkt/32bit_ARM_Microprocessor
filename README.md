@@ -59,9 +59,11 @@
 
 ## Full Datapath and Control Unit
 ![image](https://github.com/user-attachments/assets/6f889f18-24a4-4a62-8eea-3acc680f2390)
+(made in draw.io)
 
 ## Synthesized Design
 ![image](https://github.com/user-attachments/assets/092edd26-5ae1-4e58-ab47-6ad8cd20813d)
+(from Xilinx Vivado)
 
 ## Resources
 Digital Design and Computer Architecture: ARM Edition, David Harris and Sarah Harris.
