@@ -1,6 +1,6 @@
-# 32-bit ARM Microprocessor
-
-### Design and implementation of a Single Cycle 32-bit ARM Microprocessor that supports the following instructions:
+# 32-bit Single Cycle Microprocessor 
+(Based on ARM Instruction Set Architecture)
+### Supports the following instructions
 - **LDR** (Load Register)
 - **STR** (Store Register)
 - **ADD** (Addition)
@@ -9,13 +9,57 @@
 - **AND** (Logical AND)
 - **B** (Branch)
 
-## Instruction Encoding
-- Rn (Base Register) 19:16 
-- Rd (Destination Register) 15:12
-- Immediate 11:0 for LDR and STR, 7:0 for ALU operations.
+## Instruction Encoding for LDR, STR, ADD, SUB, AND, ORR, and B.
+### LDR (Load Register)
+| Field      | Bits     | Description                                  |
+|------------|----------|-----------------------------------------------|
+|  Cond      | 31:28    | Varies, defines execution condition           |
+|  Op        | 27:26    |  01                                          |
+|  Funct     | 25:20    | Bit[5]:  X  (don't care), Bit[0]:  1  (LDR)   |
+|  Rn        | 19:16    | Base register                                |
+|  Rd        | 15:12    | Destination register                         |
+|  Immediate | 11:0     | Immediate offset                             |
 
-## Datapath for LDR, STR
-![image](https://github.com/user-attachments/assets/555e6c4b-3b69-4557-92b6-6741b9ab5b21)
+### STR (Store Register)
+| Field      | Bits     | Description                                  |
+|------------|----------|-----------------------------------------------|
+|  Cond      | 31:28    | Varies, defines execution condition           |
+|  Op        | 27:26    |  01                                          |
+|  Funct     | 25:20    | Bit[5]:  X  (don't care), Bit[0]:  0  (STR)   |
+|  Rn        | 19:16    | Base register                                |
+|  Rd        | 15:12    | Source register                              |
+|  Immediate | 11:0     | Immediate offset                             |
+
+## Data Processing Instructions (AND, ORR, ADD, SUB)
+| **Field**  | **Bits**   | **Description**               |
+|------------|------------|-------------------------------|
+|  Cond      | 31:28      | Condition flags               |
+|  Op        | 27:26      | Operation:  00  for DP Reg    |
+|  Funct     | 25:20      | Specific DP type (AND, ORR, etc.) |
+|  Rn        | 19:16      | First source register         |
+|  Rd        | 15:12      | Destination register          |
+|  Rm        | 3:0        | Second source register (Reg Addr.) |
+|  Imm       | 11:0 or 7:0| Immediate value (Imm Addr.)   |
+#### Register Addressing 
+- **Second source**: Taken from  Rm  (Instr[3:0]).
+- **Control Signal**:  RegSrc  selects between  Rd  (Instr[15:12]) for STR and  Rm  for DP instructions.
+- **ALU Input**:  ALUSrc  selects between  ExtImm  (for Imm Addr.) and register file for DP instructions.
+
+#### Immediate Addressing
+- **Immediate**: 8-bit (Instr[7:0]) extended to 32 bits.
+- **Control Signal**:  ImmSrc  selects between 8-bit (for DP) or 12-bit (for LDR/STR).
+- **ALU Result**: Written back to the destination register via the multiplexer controlled by  MemtoReg .
+
+## Branch (B)
+| **Field**  | **Bits**   | **Description**              |
+|------------|------------|------------------------------|
+|  Cond      | 31:28      | Condition flags              |
+|  Op        | 27:26      | Operation:  10  for Branch   |
+|  Imm       | 23:0       | 24-bit signed immediate      |
+
+
+## Full Datapath and Control Unit
+![image](https://github.com/user-attachments/assets/6f889f18-24a4-4a62-8eea-3acc680f2390)
 
 ## Synthesized Design
 ![image](https://github.com/user-attachments/assets/092edd26-5ae1-4e58-ab47-6ad8cd20813d)
