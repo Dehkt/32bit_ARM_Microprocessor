@@ -1,5 +1,4 @@
 # 32-bit Single Cycle Microprocessor 
-(Based on ARM Instruction Set Architecture)
 ### Supports the following instructions
 - **LDR** (Load Register)
 - **STR** (Store Register)
