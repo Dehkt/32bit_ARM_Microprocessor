@@ -33,8 +33,8 @@
 | **Field**  | **Bits**   | **Description**               |
 |------------|------------|-------------------------------|
 |  Cond      | 31:28      | Condition flags               |
-|  Op        | 27:26      | Operation:  00  for DP Reg    |
-|  Funct     | 25:20      | Specific DP type (AND, ORR, etc.) |
+|  Op        | 27:26      | Operation:  00  for Reg and Imm   |
+|  Funct     | 25:20      | Bit[5]: 0 for Reg, 1 for Imm. (rest is operation dependant) |
 |  Rn        | 19:16      | First source register         |
 |  Rd        | 15:12      | Destination register          |
 |  Rm        | 3:0        | Second source register (Reg Addr.) |
@@ -45,15 +45,16 @@
 - **ALU Input**:  ALUSrc  selects between  ExtImm  (for Imm Addr.) and register file for DP instructions.
 
 #### Immediate Addressing
-- **Immediate**: 8-bit (Instr[7:0]) extended to 32 bits.
-- **Control Signal**:  ImmSrc  selects between 8-bit (for DP) or 12-bit (for LDR/STR).
-- **ALU Result**: Written back to the destination register via the multiplexer controlled by  MemtoReg .
+- **Immediate**: 8-bit (Instr[7:0]) is zero extended to 32 bits.
+- **Control Signal**:  ImmSrc  selects between 8-bit (for DP) or 12-bit (for LDR/STR) zero extended immediate.
+- **ALU Result**: Written back to the destination register via the multiplexer controlled by MemtoReg.
 
 ## Branch (B)
 | **Field**  | **Bits**   | **Description**              |
 |------------|------------|------------------------------|
 |  Cond      | 31:28      | Condition flags              |
 |  Op        | 27:26      | Operation:  10  for Branch   |
+|          | 25:24      | Unused   |
 |  Imm       | 23:0       | 24-bit signed immediate      |
 
 
