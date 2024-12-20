@@ -64,7 +64,6 @@
 
 ## Synthesized Design
 ![image](https://github.com/user-attachments/assets/092edd26-5ae1-4e58-ab47-6ad8cd20813d)
-(from Xilinx Vivado)
 
 ## Resources
 Digital Design and Computer Architecture: ARM Edition, David Harris and Sarah Harris.
