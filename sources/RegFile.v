@@ -59,8 +59,6 @@ always @(*) begin
          RD2 = mem[A2];
     end
     
-      mem[1] = 4'b0010;
-      mem[2] = 4'b1111;
 end
 
 
