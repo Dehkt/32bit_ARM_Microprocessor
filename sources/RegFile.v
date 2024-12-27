@@ -36,16 +36,6 @@ module RegFile(
 reg [31:0] mem [15:0]; // 16 registers, each is 32 bits wide, R15 is its own input.
 integer i;
 
-//task dump_mem(); // Task for Seeing Register File Contents
-//    integer j;
-//    begin
-//        $display("Register file contents:");
-//        for (j = 0; j < 16; j = j + 1) begin
-//            $display("R%d = %h", j, mem[j]);
-//        end
-//    end
-//endtask
-
 always @(posedge clk or posedge rst) begin
     if (rst) begin
         for (i = 0; i < 16; i = i + 1)
